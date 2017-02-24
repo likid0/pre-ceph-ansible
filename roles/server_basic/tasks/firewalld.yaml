@@ -1,0 +1,24 @@
+---
+- name: enable firewalld
+  service:
+      name: firewalld
+      enabled: true
+      state: started
+
+- name: Firewall ports mons
+  firewalld:
+      port: 6789/tcp
+      permanent: true
+      state: enabled
+
+- name: Firewall ports osds
+  firewalld:
+      port: 6800-7300/tcp
+      permanent: true
+      state: enabled
+
+- name: Firewall ports calamari
+  firewalld:
+      port: 8002/tcp
+      permanent: true
+      state: enabled

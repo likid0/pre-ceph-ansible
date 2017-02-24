@@ -1,0 +1,20 @@
+---
+- name: Ensure Iptables is installed
+  apt: name=iptables state=latest
+  when: ansible_os_family == "Debian"
+- name: Disable firewall ufw
+  ufw: state=disabled policy=allow
+  when: ansible_distribution == "Ubuntu"
+
+- name: Ensure Iptables is installed
+  yum: name=iptables state=latest
+  when: ansible_os_family == "RedHat"
+- name: Ensure iptables-services is installed
+  yum: name=iptables-services state=latest
+  when: ansible_os_family == "RedHat"
+- name: disable firewalld
+  service: name=firewalld enabled=no state=stopped
+  when: ansible_distribution == "CentOS"
+- name: Start iptables service
+  service: name=iptables enabled=yes state=restarted
+  when: ansible_distribution == "CentOS"

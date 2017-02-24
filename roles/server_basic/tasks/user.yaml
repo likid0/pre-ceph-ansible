@@ -1,0 +1,22 @@
+- name: create user
+  user:
+    name: ceph-admin
+    comment: "ceph admin"
+    uid: 1500
+    group: wheel
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+
+- name: Set authorized key took from file
+  authorized_key:
+    user: ceph-admin
+    state: present
+    key: "{{ lookup('file', '/root/.ssh/authorized_keys') }}"
+
+- name: add to sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel\s'
+    line: 'ceph-admin ALL=(ALL) NOPASSWD: ALL'

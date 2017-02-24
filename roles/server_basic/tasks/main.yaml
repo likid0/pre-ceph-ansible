@@ -1,0 +1,5 @@
+---
+- include: update-soft.yaml
+- include: ntp.yaml
+- include: firewalld.yaml
+- include: user.yaml
