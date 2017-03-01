@@ -1,15 +1,17 @@
 ---
-- name: subscribe
-  redhat_subscription:
-    state: present
-    username: likid0
-    password: adm3-.PW
-    autosubscribe: true
+#- name: subscribe
+#  redhat_subscription:
+#    state: present
+#    username: likid0
+#    password: XXXXXX
+#    autosubscribe: true
 
 
 - name: Update-software on node
   yum: name=* state=latest update_cache=yes
-  when: ansible_os_family == "RedHat"
+
+- name: Install EPEL
+  yum: name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
 
 #- name: Update all packages on node
 #  apt:  upgrade=dist

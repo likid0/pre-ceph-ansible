@@ -1,4 +1,7 @@
 ---
+- name: Install firewalld software
+  yum: name=firewalld state=latest update_cache=yes
+
 - name: enable firewalld
   service:
       name: firewalld
