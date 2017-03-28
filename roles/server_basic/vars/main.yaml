@@ -1,4 +1,4 @@
 ---
-ntp1server: hora.rediris.es
+ntp1server: 1.centos.pool.ntp.org
 ntp2server: 0.centos.pool.ntp.org
 ntpd_daemon: ntpd
