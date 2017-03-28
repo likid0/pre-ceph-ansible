@@ -2,11 +2,27 @@
   user:
     name: ceph-admin
     comment: "ceph admin"
-    uid: 1500
+    uid: 1550
     group: wheel
     generate_ssh_key: yes
     ssh_key_bits: 2048
     ssh_key_file: .ssh/id_rsa
+
+- group:
+    name: ceph
+    state: present
+
+
+- name: create user
+  user:
+    name: ceph
+    comment: "ceph"
+    uid: 1500
+    group: ceph
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+
 
 - name: Set authorized key took from file
   authorized_key:
@@ -14,9 +30,29 @@
     state: present
     key: "{{ lookup('file', '/root/.ssh/authorized_keys') }}"
 
+- name: Set authorized key took from file
+  authorized_key:
+    user: ceph
+    state: present
+    key: "{{ lookup('file', '/root/.ssh/authorized_keys') }}"
+
+
 - name: add to sudoers
   lineinfile:
     dest: /etc/sudoers
     state: present
     regexp: '^%wheel\s'
     line: 'ceph-admin ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+
+- name: add to sudoers
+  lineinfile:
+    insertafter: '^ceph-admin.*' 
+    dest: /etc/sudoers
+    state: present
+    regexp: ceph-admin
+    line: 'ceph ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+

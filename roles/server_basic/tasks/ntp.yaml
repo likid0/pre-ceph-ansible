@@ -1,6 +1,6 @@
 ---
-#- name: Timezone
-#  timezone: name=Europe/Madrid
+- name: Timezone
+  timezone: name=Europe/Madrid
 - name: Check if ntp is installed and updated
   yum: name=ntp state=latest
   when: ansible_os_family == "RedHat"

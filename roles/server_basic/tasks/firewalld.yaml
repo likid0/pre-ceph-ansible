@@ -11,6 +11,24 @@
 - name: Firewall ports mons
   firewalld:
       port: 6789/tcp
+      permanent: false
+      state: enabled
+
+- name: Firewall ports osds
+  firewalld:
+      port: 6800-7300/tcp
+      permanent: false
+      state: enabled
+
+- name: Firewall ports calamari
+  firewalld:
+      port: 8002/tcp
+      permanent: false
+      state: enabled
+
+- name: Firewall ports mons
+  firewalld:
+      port: 6789/tcp
       permanent: true
       state: enabled
 

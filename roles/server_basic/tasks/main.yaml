@@ -1,5 +1,6 @@
 ---
 - include: update-soft.yaml
+- include: hosts.yaml
 - include: ntp.yaml
 - include: firewalld.yaml
 - include: user.yaml
